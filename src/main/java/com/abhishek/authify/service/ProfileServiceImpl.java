@@ -44,7 +44,7 @@ public class ProfileServiceImpl implements ProfileService {
     public void sendResetOtp(String email) {
         UserEntity existingEntity=userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 
-        String otp= String.valueOf(ThreadLocalRandom.current().nextInt(10000,99999));
+        String otp= String.valueOf(ThreadLocalRandom.current().nextInt(100000,999999));
 
         long expiryTime = System.currentTimeMillis() + (15*60*1000);
 
@@ -83,11 +83,11 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public void sendOtp(String email) {
         UserEntity existingUser=userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        if (existingUser.getIsAccountVerified() != null && !existingUser.getIsAccountVerified()) {
+        if (existingUser.getIsAccountVerified() != null && existingUser.getIsAccountVerified()) {
             return;
         }
 
-        String otp= String.valueOf(ThreadLocalRandom.current().nextInt(10000,99999));
+        String otp= String.valueOf(ThreadLocalRandom.current().nextInt(100000,999999));
 
         long expiryTime = System.currentTimeMillis() + (24*60*60*1000);
 
